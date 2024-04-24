@@ -9,12 +9,13 @@ import {UserService} from "../../../services/user.service";
 })
 export class UserListComponent {
   users: User[] = [];
+  userIdToDelete?: number;
 
   constructor(private userService: UserService) {
-    this.getUsers();
+    this.getAllUsers();
   }
 
-  private getUsers(): void {
+  private getAllUsers(): void {
     this.userService.getAllUsers().subscribe({
       next: (userRequest) =>{
         this.users = userRequest;
@@ -24,5 +25,20 @@ export class UserListComponent {
   }
   private handleError(error: any): void {
     console.log(error);
+  }
+
+  public prepareUserToDelete(userId: number): void {
+    this.userIdToDelete = userId;
+  }
+
+  public deleteUserConfirm(): void {
+    if (this.userIdToDelete) {
+      this.userService.deleteUser(this.userIdToDelete).subscribe({
+        next: (data) =>{
+          this.getAllUsers();
+        },
+        error: (err)=> {this.handleError(err);}
+      })
+    }
   }
 }

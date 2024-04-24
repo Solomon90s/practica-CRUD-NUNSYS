@@ -32,7 +32,8 @@ export class UserService {
     return this.http.patch<User>(URI, user);
   }
 
-
-
-
+  public deleteUser(userIdToDelete: number): Observable<any> {
+    let URI: string = 'http://localhost:8080/user/users/' + userIdToDelete;
+    return this.http.delete<any>(URI);
+  }
 }
