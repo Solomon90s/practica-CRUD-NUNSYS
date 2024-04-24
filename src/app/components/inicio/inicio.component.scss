@@ -1,1 +1,14 @@
+.miContenedor{
+  margin-top: 50px;
+}
+
+.miImagen:hover{
+  cursor: pointer;
+  transform: scale(105%);
+  transition: 0.75s;
+}
+.miImagen{
+  border-radius: 50px;
+  box-shadow: rgba(202, 202, 202, 0.3) 0px 5px 5px, rgba(253, 253, 253, 0.22) 0px 5px 5px;
+}
 

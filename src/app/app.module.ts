@@ -1,13 +1,14 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/layouts/navbar/navbar.component';
 import { FooterComponent } from './components/layouts/footer/footer.component';
 import { InicioComponent } from './components/inicio/inicio.component';
-import { UserComponent } from './components/entities/user/user.component';
-import { UsuariosComponent } from './components/usuarios/usuarios.component';
+import {UserFormComponent} from "./components/entities/user-form/user-form.component";
+import {HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
+import { UserListComponent } from './components/entities/user-list/user-list.component';
+import {HttpRequestIntercept} from "./components/config/interceptors/http-request-interceptor.interceptor";
 
 @NgModule({
   declarations: [
@@ -15,14 +16,21 @@ import { UsuariosComponent } from './components/usuarios/usuarios.component';
     NavbarComponent,
     FooterComponent,
     InicioComponent,
-    UserComponent,
-    UsuariosComponent,
+    UserFormComponent,
+    UserListComponent,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpRequestIntercept,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
