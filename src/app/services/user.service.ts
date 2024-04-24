@@ -12,9 +12,27 @@ export class UserService {
   }
 
   public getAllUsers(): Observable<User[]> {
-    const URI: string = 'http://localhost:8080/user/users';
+    let URI: string = 'http://localhost:8080/user/users';
     return this.http.get<User[]>(URI);
   }
+
+
+  public getUserById(id: number): Observable<User> {
+    let URI: string = 'http://localhost:8080/user/users/' + id;
+    return this.http.get<User>(URI);
+  }
+
+  public insertUser(user: User): Observable<User> {
+    let URI: string = 'http://localhost:8080/user/users';
+    return this.http.post<User>(URI, user);
+  }
+
+  public updateUser(user: User): Observable<User> {
+    let URI: string = 'http://localhost:8080/user/users';
+    return this.http.patch<User>(URI, user);
+  }
+
+
 
 
 }

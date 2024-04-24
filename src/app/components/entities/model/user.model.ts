@@ -1,9 +1,9 @@
 export class User {
-  public id: number | undefined;
-  public name: string;
-  public apellidos: string;
-  public email: string;
-  public roles: string;
+  id: number | undefined;
+  name: string;
+  apellidos: string;
+  email: string;
+  roles: string;
 
 
   constructor(id: number | undefined, nombre: string, apellidos: string, email: string, rol: string) {
