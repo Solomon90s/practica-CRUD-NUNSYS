@@ -9,7 +9,7 @@ import {UserFormComponent} from "./components/entities/user-form/user-form.compo
 import {HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { UserListComponent } from './components/entities/user-list/user-list.component';
 import {HttpRequestIntercept} from "./components/config/interceptors/http-request-interceptor.interceptor";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -24,7 +24,8 @@ import {FormsModule} from "@angular/forms";
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     {

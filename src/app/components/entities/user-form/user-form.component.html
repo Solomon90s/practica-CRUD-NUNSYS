@@ -1,35 +1,95 @@
 <div class="row miContenedor justify-content-center">
   <div class="col-xl-6 col-lg-6 col-xxl-6">
     <h1 class="text-center text-uppercase">Crear o editar usuarios</h1>
-    {{ mode }} // {{ id }}
-    <form *ngIf="user" #userForm="ngForm" name="userForm" role="form" novalidate autocomplete="off">
-      <div class="form-group">
+    <div class="div mt-5">
+      {{ mode }} // {{ id }}
+    </div>
+
+    <form *ngIf="userForm" [formGroup]="userForm!" novalidate autocomplete="off">
+
+      <div class="form-group" *ngIf="mode === 'UPDATE'">
         <!-- Id: solo visible para la edición, no será editable -->
         <label for="id">Id</label>
-        <input type="number" name="id" disabled [(ngModel)]="user.id" class="form-control" id="id" #id="ngModel">
+        <input type="number" name="id" class="form-control" id="id" formControlName="id">
+      </div>
 
-        <!-- Nombre -->
-        <label for="nombre">Nombre</label>
-        <input type="text" name="Nombre" id="nombre" [(ngModel)]="user.name" class="form-control" #nombre="ngModel">
+      <!-- Nombre -->
+      <div class="form-group">
+        <label for="name">Nombre *</label>
+        <input type="text" name="Nombre" id="name" class="form-control" placeholder="nombre" formControlName="name">
+      </div>
 
-        <!-- Apellidos -->
-        <label for="apellidos">Apellidos</label>
-        <input type="text" name="Apellidos" id="apellidos" [(ngModel)]="user.apellidos" class="form-control"
-               #apellidos="ngModel">
+      <!-- Validación Nombre -->
+      <div *ngIf="(userForm.get('name')!.touched && userForm.get('name')!.errors)">
+        <small class="form-text text-danger" *ngIf="userForm.get('name')!.errors!['required']">
+          El nombre es obligatorio
+        </small>
+        <small class="form-text text-danger" *ngIf="userForm.get('name')!.errors!['minlength']">
+          El nombre debe tener al menos 3 caracteres
+        </small>
+        <small class="form-text text-danger" *ngIf="userForm.get('name')!.errors!['maxlength']">
+          El nombre no puede tener más de 150 caracteres
+        </small>
+      </div>
 
-        <!-- Email -->
-        <label for="email">Email</label>
-        <input type="email" name="Email" id="email" [(ngModel)]="user.email" class="form-control" #email="ngModel">
+      <!-- Apellidos -->
+      <div class="form-group">
+        <label for="apellidos">Apellidos *</label>
+        <input type="text" name="Apellidos" id="apellidos" class="form-control"
+               placeholder="apellidos"  formControlName="apellidos">
+      </div>
 
-        <!-- Rol -->
-        <label for="roles">Roles</label>
-        <select name="Roles" id="roles" class="form-control" [(ngModel)]="user.roles">
+      <!-- Validación Apellidos -->
+      <div *ngIf="(userForm.get('apellidos')!.touched && userForm.get('apellidos')!.errors)">
+        <small class="form-text text-danger" *ngIf="userForm.get('apellidos')!.errors!['required']">
+          Los apellidos es obligatorio
+        </small>
+        <small class="form-text text-danger" *ngIf="userForm.get('apellidos')!.errors!['minlength']">
+          Los apellidos debe tener al menos 5 caracteres
+        </small>
+        <small class="form-text text-danger" *ngIf="userForm.get('apellidos')!.errors!['maxlength']">
+          Los apellidos no puede tener más de 150 caracteres
+        </small>
+      </div>
+
+
+      <!-- Email -->
+      <div class="form-group">
+        <label for="email">Email *</label>
+        <input type="email" name="Email" id="email" class="form-control"
+               placeholder="nombre@ejemplo.com" formControlName="email">
+      </div>
+
+      <!-- Validación Email -->
+      <div *ngIf="(userForm.get('email')!.touched && userForm.get('email')!.errors)">
+        <small class="form-text text-danger" *ngIf="userForm.get('email')!.errors!['required']">
+          El email es obligatorio
+        </small>
+        <small class="form-text text-danger" *ngIf="userForm.get('email')!.errors!['minlength']">
+          El email debe tener al menos 10 caracteres
+        </small>
+        <small class="form-text text-danger" *ngIf="userForm.get('email')!.errors!['maxlength']">
+          El email debe tener como máximo 50 caracteres
+        </small>
+      </div>
+
+      <!-- Rol -->
+      <div class="form-group">
+        <label for="roles">Roles *</label>
+        <select name="roles" id="roles" class="form-control" formControlName="roles">
           <option value="administrador">Administrador</option>
           <option value="contributor">Contributor</option>
         </select>
-        <div class="buttonsForm mt-3 text-center">
-          <button (click)="saveUser()" class="btn btn-success">Guardar</button>
-        </div>
+      </div>
+
+      <div *ngIf="(userForm.get('roles')!.touched && userForm.get('roles')!.errors)">
+        <small class="form-text text-danger" *ngIf="userForm.get('roles')!.errors!['required']">
+          El campo rol es obligatorio
+        </small>
+      </div>
+
+      <div class="buttonsForm mt-3 text-center">
+        <button (click)="saveUser()" [disabled]="userForm.invalid" class="btn btn-success">Guardar</button>
       </div>
     </form>
   </div>
