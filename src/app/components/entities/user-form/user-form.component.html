@@ -89,7 +89,8 @@
       </div>
 
       <div class="buttonsForm mt-3 text-center">
-        <button (click)="saveUser()" [disabled]="userForm.invalid" class="btn btn-success">Guardar</button>
+        <button class="btn btn-secondary mx-5" data-bs-dismiss="modal">Cancelar</button>
+        <button (click)="saveUser()" [disabled]="userForm.invalid" class="btn btn-primary">Guardar</button>
       </div>
     </form>
   </div>

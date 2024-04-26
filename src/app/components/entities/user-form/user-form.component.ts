@@ -44,7 +44,8 @@ export class UserFormComponent {
   }
 
   private handleError(err: any):void {
-    // ToDo
+    console.error(err);
+
   }
 
   private initializeUser():void {
@@ -64,7 +65,7 @@ export class UserFormComponent {
 
 
   private insertUser(userToSave: User): void {
-    this.userService.insertUser(this.user!).subscribe({
+    this.userService.insertUser(userToSave).subscribe({
       next: (userInserted) =>{
         console.log("Insertado correctamente");
         console.log(userInserted);
@@ -74,7 +75,7 @@ export class UserFormComponent {
   }
 
   private updateUser(userTosave: User): void {
-    this.userService.updateUser(this.user!).subscribe({
+    this.userService.updateUser(userTosave).subscribe({
       next: (userUpdated) =>{
         console.log("Modificado correctamente");
         console.log(userUpdated);
