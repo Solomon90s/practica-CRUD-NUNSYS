@@ -11,8 +11,11 @@ export class UserService {
   constructor(private http: HttpClient) {
   }
 
-  public getAllUsers(): Observable<User[]> {
+  public getAllUsers(filters?: string): Observable<User[]> {
     let URI: string = 'http://localhost:8080/user/users';
+    if (filters) {
+      URI = URI + '&filter=' + filters;
+    }
     return this.http.get<User[]>(URI);
   }
 

@@ -1,4 +1,26 @@
-.miFila{
+.miFila {
   margin-top: 75px;
 }
 
+.inputName {
+  width: 100%;
+}
+
+.botonBuscar {
+  margin-top: 20px;
+}
+
+.trash:hover{
+  cursor: pointer;
+}
+.trash{
+  color: orangered;
+}
+
+.edit:hover{
+  cursor: pointer;
+}
+
+.edit{
+  color: greenyellow;
+}

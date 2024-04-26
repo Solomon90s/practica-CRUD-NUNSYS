@@ -1,38 +1,58 @@
 <div class="row miFila">
-<div class="col-xl-12 col-lg-12 col-xxl-12">
-  <h1 class="text-uppercase text-center mb-3">Lista de usuarios</h1>
-  <div class="col-xl-3 col-xxl-3 col-lg-3">
-    <div class="btn btn-outline-danger rounded-5" routerLink="/usuarios/new">Añadir nuevo usuario</div>
+  <div class="col-xl-12 col-lg-12 col-xxl-12">
+    <h1 class="text-uppercase text-center mb-3">Lista de usuarios</h1>
+    <div class="containerFiltros">
+      <form>
+        <div class="row mt-5 justify-content-center">
+          <h4 class="text-decoration-underline text-center">Filtros de búsqueda</h4>
+          <!-- Name -->
+          <div class="form-group col-xl-9 col-md-9">
+            <label for="name">Nombre</label>
+            <input type="text" class="inputName" id="name" autocomplete="off" [(ngModel)]="nameFilter" name="name">
+          </div>
+          <!-- Search -->
+          <div class="col-xl-3 col-md-3 botonBuscar">
+            <button id="btnSearch" class="btn btn-secondary" (click)="searchByFilters()">Buscar</button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div class="btn btn-outline-danger rounded-5 mt-5" routerLink="/usuarios/new">Añadir nuevo usuario</div>
+
+    <table class="table table-hover text-center mt-3 table-bordered border-info-subtle" *ngIf="users">
+      <thead>
+      <tr class="text-uppercase text-center text-decoration-underline">
+        <th>Id</th>
+        <th>Nombre</th>
+        <th>Apellidos</th>
+        <th>Email</th>
+        <th>Rol</th>
+        <th>Acciones</th>
+      </tr>
+      </thead>
+      <tbody class="text-center">
+      <tr *ngFor="let user of users">
+        <td>{{ user.id }}</td>
+        <td>{{ user.name }}</td>
+        <td>{{ user.apellidos }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.roles }}</td>
+        <td>
+          <i [routerLink]="['/usuarios',user.id]" class="bi bi-pencil-square mx-2 edit">
+          </i>
+          <i class="bi bi-trash3 trash mx-2" data-bs-toggle="modal"
+             data-bs-target="#askConfirmationDelete" (click)="prepareUserToDelete(user.id!);">
+          </i>
+        </td>
+      </tr>
+      </tbody>
+    </table>
   </div>
-  <table class="table table-hover text-center mt-5 table-bordered border-info-subtle" *ngIf="users">
-    <thead>
-    <tr class="text-uppercase text-center text-decoration-underline">
-      <th>Id</th>
-      <th>Nombre</th>
-      <th>Apellidos</th>
-      <th>Email</th>
-      <th>Rol</th>
-      <th>Acciones</th>
-    </tr>
-    </thead>
-    <tbody class="text-center text-uppercase">
-    <tr *ngFor="let user of users">
-      <td>{{ user.id }}</td>
-      <td>{{ user.name}}</td>
-      <td>{{ user.apellidos}}</td>
-      <td>{{ user.email}}</td>
-      <td>{{ user.roles}}</td>
-      <td>
-        <button id="btnEditUser" class="btn btn-secondary" [routerLink]="['/usuarios',user.id]">Editar Usuario</button>
-        <button id="btnDeleteUser" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#askConfirmationDelete" (click)="prepareUserToDelete(user.id!);">Eliminar Usuario</button>
-      </td>
-    </tr>
-    </tbody>
-  </table>
-</div>
 </div>
 <!-- Modal -->
-<div class="modal fade" id="askConfirmationDelete" tabindex="-1" aria-labelledby="askConfirmationDelete" aria-hidden="true">
+<div class="modal fade" id="askConfirmationDelete" tabindex="-1" aria-labelledby="askConfirmationDelete"
+     aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -44,7 +64,8 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="deleteUserConfirm();">Borrar</button>
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="deleteUserConfirm();">Borrar
+        </button>
       </div>
     </div>
   </div>
